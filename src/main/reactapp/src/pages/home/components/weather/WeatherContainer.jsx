@@ -17,8 +17,9 @@ const WeatherContainer = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: '100vh',
+                width: '100%',
+                maxWidth: '1200px',
+                margin: '0 auto',
                 padding: '20px'
             }}>
                 <QueryClientProvider client={queryClient}>

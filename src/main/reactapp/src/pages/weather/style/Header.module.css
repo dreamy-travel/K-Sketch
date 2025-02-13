@@ -37,9 +37,11 @@
 /* 검색 폼 */
 .form {
     position: relative;
-    width: 500px;
+    width: 400px;
     background-color: var(--surface);
-    border-radius: var(--radius-28);
+    border-radius: var(--radius-16);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .wrapper {
@@ -51,6 +53,8 @@
     top: 50%;
     left: 28px;
     transform: translate(-50%, -50%);
+    color: var(--on-surface-variant);
+    font-size: 1.2rem;
 }
 
 .back {
@@ -59,13 +63,19 @@
     top: 50%;
     left: 28px;
     transform: translate(-50%, -50%);
-    font-size: 24px;
+    font-size: 1.2rem;
 }
 
 .input {
-    height: 56px;
+    width: 100%;
+    height: 48px;
     padding-inline: 56px 16px;
     outline: none;
+    border: none;
+    border-radius: var(--radius-16);
+    background-color: var(--surface);
+    color: var(--on-surface);
+    font-size: 0.95rem;
 }
 
 .input::placeholder {
@@ -75,6 +85,14 @@
 /* 검색 결과 */
 .result {
     display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--surface);
+    border-radius: 0 0 var(--radius-16) var(--radius-16);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
 .form:focus-within .result.active {
@@ -87,69 +105,89 @@
 
 /* 결과 리스트 */
 .list {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
     max-height: 360px;
-    border-radius: 0 0 var(--radius-28) var(--radius-28);
-    border-top: 1px solid var(--outline);
     overflow-y: auto;
-    background-color: var(--surface);
-    padding-block: 8px 16px;
+    padding: 8px 0;
 }
 
-.list:empty {
-    min-height: 120px;
+.list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.list::-webkit-scrollbar-thumb {
+    background-color: var(--on-surface-variant);
+    border-radius: 3px;
 }
 
 /* 결과 아이템 */
 .item {
-    position: relative;
-    height: 56px;
     display: flex;
-    justify-content: flex-start;
     align-items: center;
-    gap: 16px;
-    padding-inline: 16px 24px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 .item:hover {
     background-color: var(--white-opacity-4);
 }
 
-.label {
-    --label: 12px;
-    font-size: var(--label);
-    color: var(--on-surface-variant-2);
+.item .icon {
+    margin-right: 12px;
+    color: var(--on-surface-variant);
+    font-size: 1.2rem;
 }
 
+.item .title {
+    font-size: 0.95rem;
+    color: var(--on-surface);
+    margin-bottom: 4px;
+}
+
+.item .label {
+    font-size: 0.8rem;
+    color: var(--on-surface-variant);
+}
+
+/* 우측 버튼 영역 */
 .right {
     display: flex;
-    gap: 24px;
+    gap: 16px;
     align-items: center;
 }
+
 .m-search {
     display: none;
-}
-
-.m-search:hover {
-    background-color: var(--white-opacity-12);
 }
 
 .primary {
     display: flex;
     align-items: center;
-    padding-inline: 16px 24px;
+    padding: 0 20px;
     height: 48px;
-    gap: 16px;
-    border-radius: 28px;
+    gap: 8px;
+    border-radius: var(--radius-16);
     background-color: var(--primary);
     color: var(--on-primary);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.span {
-    font-weight: var(--weight-semiBold);
+.primary:hover {
+    background-color: var(--primary-dark);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-1px);
+}
+
+.primary .icon {
+    font-size: 1.2rem;
+}
+
+.primary .span {
+    font-size: 0.95rem;
+    font-weight: 500;
 }
 
 /* 폼 상태에 따른 스타일 */
@@ -208,7 +246,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
+        width: 320px;
         height: 100vh;
         border-radius: 0;
         opacity: 0;
@@ -271,5 +309,68 @@
 
     .span {
         display: none;
+    }
+
+    .form {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        background-color: var(--surface);
+        opacity: 0;
+        visibility: hidden;
+        z-index: 1000;
+    }
+
+    .form.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .wrapper {
+        border-bottom: 1px solid var(--outline);
+    }
+
+    .search-icon {
+        display: none;
+    }
+
+    .back {
+        display: flex;
+    }
+
+    .input {
+        height: 64px;
+        font-size: 1rem;
+    }
+
+    .result {
+        position: static;
+        height: calc(100vh - 64px);
+        box-shadow: none;
+    }
+
+    .m-search {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-16);
+        background-color: var(--white-opacity-8);
+        color: var(--on-surface);
+        font-size: 1.2rem;
+    }
+
+    .primary .span {
+        display: none;
+    }
+
+    .primary {
+        width: 48px;
+        padding: 0;
+        justify-content: center;
     }
 }

@@ -108,10 +108,10 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <div className={styles.container}>
-                <button className={styles.logo}>
+                {/* <button className={styles.logo}>
                     <TiWeatherPartlySunny />
                     <span>weather</span>
-                </button>
+                </button> */}
                 <form
                     className={`${styles.form} ${isLoading ? styles.searching : ""} ${(isFocused && isExpanded) ? styles.expanded : ''} ${isSearchVisible ? styles.active : ""}`}
                     onSubmit={handleSubmit}

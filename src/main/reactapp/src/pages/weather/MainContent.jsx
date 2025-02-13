@@ -79,17 +79,18 @@ export default function MainContent() {
     }
 
     return (
-        <>
-            <article className={styles.container}>
-                <div className={styles.left}>
+        <div className={styles.container}>
+            <div className={styles.topSection}>
+                <div className={styles.weatherLeft}>
                     <CurrentWeather currentWeather={currentWeather} city={city} />
+                </div>
+                <div className={styles.weatherRight}>
                     <Forecast forecastData={forecastData} />
                 </div>
-                <div className={styles.right}>
-                    <Highlights airPollution={airPollution} currentWeather={currentWeather} />
-                    <HourlyForecast forecastData={forecastData} />
-                </div>
-            </article>
-        </>
+            </div>
+            <div className={styles.bottomSection}>
+                <HourlyForecast forecastData={forecastData} />
+            </div>
+        </div>
     );
 }
